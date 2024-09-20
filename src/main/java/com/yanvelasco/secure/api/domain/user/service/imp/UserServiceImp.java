@@ -26,6 +26,12 @@ public class UserServiceImp implements UserService {
         if (user.getId() != null && userRepository.existsById(user.getId())) {
             throw new RuntimeException("User already exists");
         }
+        if (userRepository.existsByCardEntityNumber(user.getCardEntity().getNumber())) {
+            throw new RuntimeException("Card already exists");
+        }
+        if (userRepository.existsByAccountEntityNumber(user.getAccountEntity().getNumber())) {
+            throw new RuntimeException("Account already exists");
+        }
         return userRepository.save(user);
     }
 
