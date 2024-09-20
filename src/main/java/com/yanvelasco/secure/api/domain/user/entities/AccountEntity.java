@@ -24,9 +24,9 @@ public class AccountEntity {
 
     private String agency;
 
-    @Column(precision = 2, scale = 13)
+    @Column(precision = 13, scale = 2)
     private BigDecimal balance;
 
-    @Column(precision = 2, scale = 13, name = "credit_limit")
+    @Column(precision = 13, scale = 2, name = "credit_limit")
     private BigDecimal limit;
 }
