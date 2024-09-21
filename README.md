@@ -1,6 +1,6 @@
 # Bank - API
 
-Java RESTful API created for the Santander Dev Week project.
+Java RESTful API.
 
 ## Main Technologies
 - **Java 17**: Using the most recent LTS version of Java, allowing us to leverage the latest innovations provided by this robust and widely-used language.
