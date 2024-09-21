@@ -3,6 +3,8 @@ package com.yanvelasco.secure.api.domain.user.service.imp;
 import com.yanvelasco.secure.api.domain.user.entities.UserEntity;
 import com.yanvelasco.secure.api.domain.user.repository.UserRepository;
 import com.yanvelasco.secure.api.domain.user.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,14 +17,16 @@ public class UserServiceImp implements UserService {
     private final UserRepository userRepository;
 
     @Override
-    public UserEntity findById(UUID id) {
+    @Operation(summary = "Find a user by ID")
+    public UserEntity findById(@Parameter(description = "ID of the user to find", example = "123e4567-e89b-12d3-a456-426614174000") UUID id) {
         return userRepository.findById(id).orElseThrow(
                 () -> new RuntimeException("User not found")
         );
     }
 
     @Override
-    public UserEntity create(UserEntity user) {
+    @Operation(summary = "Create a new user")
+    public UserEntity create(@Parameter(description = "User entity to create") UserEntity user) {
         if (user.getId() != null && userRepository.existsById(user.getId())) {
             throw new RuntimeException("User already exists");
         }
@@ -36,7 +40,9 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public UserEntity update(UUID id, UserEntity userEntity) {
+    @Operation(summary = "Update an existing user")
+    public UserEntity update(@Parameter(description = "ID of the user to update", example = "123e4567-e89b-12d3-a456-426614174000") UUID id,
+                             @Parameter(description = "Updated user entity") UserEntity userEntity) {
         var user = userRepository.findById(id).orElseThrow(
                 () -> new RuntimeException("User not found")
         );
@@ -80,7 +86,8 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public void delete(UUID id) {
+    @Operation(summary = "Delete a user by ID")
+    public void delete(@Parameter(description = "ID of the user to delete", example = "123e4567-e89b-12d3-a456-426614174000") UUID id) {
         var user = userRepository.findById(id).orElseThrow(
                 () -> new RuntimeException("User not found")
         );

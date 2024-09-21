@@ -13,32 +13,35 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException e) {
-        return new ResponseEntity<String> ("Invalid input: " + e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
+        return buildResponseEntity("Invalid input: " + e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     @ExceptionHandler(NullPointerException.class)
     public ResponseEntity<String> handleNullPointerException(NullPointerException e) {
-        return new ResponseEntity<String> ("Null input: " + e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
+        return buildResponseEntity("Null input: " + e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleException(Exception e) {
-        return new ResponseEntity<String> ("Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return buildResponseEntity("Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<String> handleException(NoSuchElementException e) {
-        return new ResponseEntity<String> ("Error: " + e.getMessage(), HttpStatus.NOT_FOUND);
+        return buildResponseEntity("Error: " + e.getMessage(), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(InvalidAttributeIdentifierException.class)
     public ResponseEntity<String> handleException(InvalidAttributeIdentifierException e) {
-        return new ResponseEntity<String> ("Error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+        return buildResponseEntity("Error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Throwable.class)
     public ResponseEntity<String> handleException(Throwable e) {
-        return new ResponseEntity<String> ("Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return buildResponseEntity("Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    private ResponseEntity<String> buildResponseEntity(String message, HttpStatus status) {
+        return new ResponseEntity<>(message, status);
+    }
 }
